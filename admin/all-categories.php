@@ -47,21 +47,33 @@
                   <th scope="col">ID</th>
                   <th scope="col">Category Name</th>
                   <th scope="col">Action</th>
-                  <th scope="col">Handle</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>1</td>
-                  <td>Category Name</td>
-                  <td>
-                    <div class="btn-group">
-                      <a href="" class="btn btn-primary btn-sm">Update</a>
-                      <a href="" class="btn btn-danger btn-sm">Delete</a>
-                    </div>
-                  </td>
-                </tr>
+                <?php
+                  $query = "SELECT * FROM categories";
+                  $select_categories = mysqli_query( $connect, $query );
+
+                  while ($row = mysqli_fetch_assoc($select_categories)){
+                    
+                    $cat_id   = $row['cat_id'];
+                    $cat_name = $row['cat_name'];
+
+                    ?>
+                    <tr>
+                      <th scope="row"><?php echo $cat_id; ?></th>
+                      <td><?php echo $cat_name; ?></td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="" class="btn btn-primary btn-sm">Update</a>
+                          <a href="" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <?php
+                  }
+                ?>
               </tbody>
             </table>
           </div>
