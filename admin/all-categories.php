@@ -1,4 +1,30 @@
 <?php include "includes/header.php"?>
+
+<?php
+  $message = "";
+
+  if(isset($_POST['addCategory'])){
+    $cat_name = $_POST['category'];
+
+    if(empty($cat_name)){
+      $message = '<div class="alert alert-warning">Category Name Can not be Empty.</div>';
+    }
+    else{
+      $query = "INSERT INTO categories (cat_name) VALUES ('$cat_name')";
+
+      $addCategory = mysqli_query($connect, $query);
+
+      if(!$addCategory){
+        die("Query Failed" . mysqli_error($connect));
+      }
+      else{
+        $message = '<div class="alert alert-success">Category Name Added Successfully.</div>';
+        header("Location: all-categories.php");
+      }
+    }
+  }
+?>
+
   <!-- Begin Page Content -->
   <div class="container-fluid">
 
@@ -18,15 +44,18 @@
           </div>
           <div class="card-body">
             <!-- Category Form Start -->
-            <form action="" method="">
+            <form action="" method="POST">
               <div class="form-group">
                 <label for="Category">Add Category Name</label>
-                <input type="text" name="category" class="form-control" required="required" autocomplete="off">
+                <input type="text" name="category" class="form-control" autocomplete="off">
               </div>
               <div class="form-group">
                 <input type="submit" name="addCategory" value="Add Category" class="btn btn-primary">
               </div>
             </form>
+            <?php
+              echo $message;
+            ?>
             <!-- Category Form End -->
           </div>
         </div>
