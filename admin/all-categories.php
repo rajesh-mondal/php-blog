@@ -36,7 +36,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-4">
         <!-- Add New Category Field Start -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -102,7 +102,7 @@
       <!-- Add New Category Field End -->
 
       <!-- View All Category list Start -->
-      <div class="col-lg-6">
+      <div class="col-lg-8">
 
       <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -112,8 +112,9 @@
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">ID</th>
+                  <th scope="col">Serial</th>
                   <th scope="col">Category Name</th>
+                  <th scope="col">Category ID</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -122,15 +123,17 @@
                   $query = "SELECT * FROM categories";
                   $select_categories = mysqli_query( $connect, $query );
 
+                  $i = 0;
                   while ($row = mysqli_fetch_assoc($select_categories)){
-                    
+                    $i++;
                     $cat_id   = $row['cat_id'];
                     $cat_name = $row['cat_name'];
 
                     ?>
                     <tr>
-                      <th scope="row"><?php echo $cat_id; ?></th>
+                      <td><?php echo $i; ?></td>
                       <td><?php echo $cat_name; ?></td>
+                      <th scope="row"><?php echo $cat_id; ?></th>
                       <td>
                         <div class="btn-group">
                           <a href="all-categories.php?update=<?php echo $cat_id; ?>" class="btn btn-primary btn-sm">Update</a>
