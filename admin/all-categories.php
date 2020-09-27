@@ -134,7 +134,7 @@
                       <td>
                         <div class="btn-group">
                           <a href="all-categories.php?update=<?php echo $cat_id; ?>" class="btn btn-primary btn-sm">Update</a>
-                          <a href="" class="btn btn-danger btn-sm">Delete</a>
+                          <a href="all-categories.php?delete=<?php echo $cat_id; ?>" class="btn btn-danger btn-sm">Delete</a>
                         </div>
                       </td>
                     </tr>
@@ -173,5 +173,25 @@
   }
 
 ?>
+
+<?php
+// Delete Category from Database
+if(isset($_GET['delete'])){
+  $the_cat_id = $_GET['delete'];
+
+  $query = "DELETE FROM categories WHERE cat_id=$the_cat_id";
+
+  $delete_category = mysqli_query($connect, $query);
+
+  if(!$delete_category){
+    die("Query Failed " . mysqli_error($connect));
+  }
+  else{
+    header("Location: all-categories.php");
+  }
+}
+
+?>
+
 
 <?php include "includes/footer.php"?>
