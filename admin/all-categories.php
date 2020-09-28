@@ -16,7 +16,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <!-- Add New Category Field Start -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -45,42 +45,16 @@
         <?php
           // If Category Needs to get Update
           if(isset($_GET['update'])){ 
-            $cat_id = $_GET['update'];           
-            $query = "SELECT * FROM categories WHERE cat_id = $cat_id";
-            $select_category_id = mysqli_query($connect, $query);
-            while($row = mysqli_fetch_assoc($select_category_id)){              
-              $cat_id     = $row['cat_id'];
-              $cat_name   = $row['cat_name'];
-              ?>
-
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Edit Category</h6>
-                </div>
-                <div class="card-body">
-                  <!-- Category Form Start -->
-                  <form action="" method="POST">
-                    <div class="form-group">
-                      <label for="Category">Edit Category Name</label>
-                      <input type="text" name="category" class="form-control" required="required" autocomplete="off" value="<?php if(isset($cat_id)){ echo $cat_name; } ?>">
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" name="editCategory" value="Update Category" class="btn btn-primary">
-                    </div>
-                  </form>
-                  <!-- Category Form End -->
-                </div>
-              </div>
-        <?php } 
+            $cat_id = $_GET['update']; 
+            include "includes/updateCategory.php";
             }
         ?>
         <!-- Update Category Field End -->
       </div>
 
       <!-- View All Category list Start -->
-      <div class="col-lg-8">
-
-      <div class="card shadow mb-4">
+      <div class="col-lg-6">
+        <div class="card shadow mb-4">
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">View All Category</h6>
           </div>
@@ -95,11 +69,8 @@
                 </tr>
               </thead>
               <tbody>
-
-                <?php
-                  // View All Categories Codes are Here
-                  view_all_category();
-                ?>
+                <!--- View All Categories Codes are Here --->
+                <?php view_all_category(); ?>
               </tbody>
             </table>
           </div>
@@ -109,30 +80,9 @@
     </div>
     </div>
     <!-- /.container-fluid -->
-
   </div>
   <!-- End of Main Content -->
-
-  <?php
-    // Update Category
-    if(isset($_POST['editCategory'])){
-      $cat_name = $_POST['category'];
-      $query = "UPDATE categories SET cat_name='$cat_name' WHERE cat_id='$cat_id'";
-      $update_category = mysqli_query($connect, $query);
-      if(!$update_category){
-        die("Query Failed " . mysqli_error($connect));
-      }
-      else{
-        header("Location: all-categories.php");
-      }
-    }
-
-  ?>
-
   <!--- Delete Category From the Database --->
-  <?php
-    delete_category();
-  ?>
-
+  <?php delete_category(); ?>
 
 <?php include "includes/footer.php"?>
