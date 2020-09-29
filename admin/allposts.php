@@ -22,7 +22,6 @@
                     <th scope="col">Title</th>
                     <th scope="col">Author</th>
                     <th scope="col">Post Category</th>
-                    <th scope="col">Post Status</th>
                     <th scope="col">Post Date</th>
                     <th scope="col">Action</th>
                   </tr>
@@ -39,10 +38,8 @@
                       $post_description   = $row['post_description'];
                       $post_author        = $row['post_author'];
                       $post_thumb         = $row['post_thumb'];
-                      $post_category_id   = $row['post_category_id'];
+                      $post_category      = $row['post_category'];
                       $post_tags          = $row['post_tags'];
-                      $post_comment_count = $row['post_comment_count'];
-                      $post_status        = $row['post_status'];
                       $post_date          = $row['post_date'];
                       ?>
 
@@ -50,8 +47,7 @@
                         <th scope="row">1</th>
                         <td><?php echo $post_title ?></td>
                         <td><?php echo $post_author ?></td>
-                        <td><?php echo $post_category_id ?></td>
-                        <td><?php echo $post_status ?></td>
+                        <td><?php echo $post_category ?></td>
                         <td><?php echo $post_date ?></td>
                         <td>
                         <div class="btn-group">
