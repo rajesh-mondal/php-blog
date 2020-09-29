@@ -36,7 +36,6 @@ function view_all_category(){
         <tr>
             <td><?php echo $i; ?></td>
             <td><?php echo $cat_name; ?></td>
-            <th scope="row"><?php echo $cat_id; ?></th>
             <td>
             <div class="btn-group">
                 <a href="all-categories.php?update=<?php echo $cat_id; ?>" class="btn btn-primary btn-sm">Update</a>

@@ -30,7 +30,7 @@
                 <input type="text" name="category" class="form-control" required="required" autocomplete="off">
               </div>
               <div class="form-group">
-                <input type="submit" name="addCategory" value="Add Category" class="btn btn-primary">
+                <input type="submit" name="addCategory" value="Add Category" class="btn btn-primary btn-sm">
               </div>
             </form>
             <?php
@@ -64,7 +64,6 @@
                 <tr>
                   <th scope="col">Serial</th>
                   <th scope="col">Category Name</th>
-                  <th scope="col">Category ID</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
