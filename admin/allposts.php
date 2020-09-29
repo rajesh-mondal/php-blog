@@ -24,33 +24,46 @@
                     <th scope="col">Post Category</th>
                     <th scope="col">Post Status</th>
                     <th scope="col">Post Date</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Jacob</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>@twitter</td>
-                  </tr>
+
+                  <?php 
+                    $query = "SELECT * FROM posts";
+                    $select_all_post = mysqli_query( $connect, $query );
+
+                    while( $row = mysqli_fetch_assoc($select_all_post) ){
+                      $post_id            = $row['post_id'];
+                      $post_title         = $row['post_title'];
+                      $post_description   = $row['post_description'];
+                      $post_author        = $row['post_author'];
+                      $post_thumb         = $row['post_thumb'];
+                      $post_category_id   = $row['post_category_id'];
+                      $post_tags          = $row['post_tags'];
+                      $post_comment_count = $row['post_comment_count'];
+                      $post_status        = $row['post_status'];
+                      $post_date          = $row['post_date'];
+                      ?>
+
+                      <tr>
+                        <th scope="row">1</th>
+                        <td><?php echo $post_title ?></td>
+                        <td><?php echo $post_author ?></td>
+                        <td><?php echo $post_category_id ?></td>
+                        <td><?php echo $post_status ?></td>
+                        <td><?php echo $post_date ?></td>
+                        <td>
+                        <div class="btn-group">
+                            <a href="all-categories.php?update=" class="btn btn-primary btn-sm">Update</a>
+                            <a href="all-categories.php?delete=" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                        </td>
+                      </tr>
+                      
+                      <?php
+                    }                   
+                  ?>
                 </tbody>
               </table>
               <!-- Blog Post List Table End -->
