@@ -3,8 +3,7 @@
 $query = "SELECT * FROM categories WHERE cat_id = $cat_id";
 $select_category_id = mysqli_query( $connect, $query );
 while ( $row = mysqli_fetch_assoc( $select_category_id ) ) {
-    $cat_id = $row['cat_id'];
-    $cat_name = $row['cat_name'];
+    
     ?>
 
     <div class="card shadow mb-4">

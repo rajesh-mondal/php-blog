@@ -52,7 +52,7 @@
                         <td><?php echo $post_date ?></td>
                         <td>
                         <div class="btn-group">
-                            <a href="all-categories.php?update=" class="btn btn-primary btn-sm">Update</a>
+                            <a href="update-post.php?update=<?php echo $post_id ?>" class="btn btn-primary btn-sm">Update</a>
                             <a href="all-categories.php?delete=" class="btn btn-danger btn-sm">Delete</a>
                         </div>
                         </td>
