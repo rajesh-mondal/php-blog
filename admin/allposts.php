@@ -52,8 +52,8 @@
                         <td><?php echo $post_date ?></td>
                         <td>
                         <div class="btn-group">
-                            <a href="update-post.php?update=<?php echo $post_id ?>" class="btn btn-primary btn-sm">Update</a>
-                            <a href="all-categories.php?delete=" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="update-post.php?update=<?php echo $post_id; ?>" class="btn btn-primary btn-sm">Update</a>
+                            <a href="allposts.php?delete=<?php echo $post_id; ?>" class="btn btn-danger btn-sm">Delete</a>
                         </div>
                         </td>
                       </tr>
@@ -70,6 +70,20 @@
       </div>
     </div>
     <!-- /.container-fluid -->
+    <?php
+      if(isset($_GET['delete'])){
+        $delete_post = $_GET['delete'];
+
+        $query = "DELETE FROM posts WHERE post_id = '$delete_post' ";
+
+        $delete_post = mysqli_query($connect, $query);
+        if ( !$delete_post ) {
+          die( "Query Failed" . mysqli_error( $connect ) );
+        } else {
+            header("Location: allposts.php");
+        }
+      }
+    ?>
   </div>
   <!-- End of Main Content -->
 <?php include "includes/footer.php"?>
