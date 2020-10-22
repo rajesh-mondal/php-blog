@@ -70,7 +70,6 @@
                         <!-- Add New Post Form End -->
                     </div>
 
-
                 <?php  }
 
                 }
@@ -85,9 +84,9 @@
     <?php
     
     //Add New Blog Post Function
-    /* if( isset($_POST['add-post']) ){
-      $post_title       = $_POST['post-title'];
-      $post_desc        = $_POST['post-desc'];
+    if( isset($_POST['update-post']) ){
+      $post_title       = mysqli_real_escape_string($connect, $_POST['post-title']);
+      $post_desc        = mysqli_real_escape_string($connectt, $_POST['post-desc']);
       $post_author      = $_POST['post-author'];
 
       $post_image       = $_FILES['image']['name'];
@@ -98,17 +97,16 @@
 
       move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
 
-      $query = "INSERT INTO posts (post_title, post_description, post_author,	post_thumb, post_category,	post_tags, post_date) VALUES ('$post_title','$post_desc','$post_author','$post_image','$post_category','$post_tags', now())";
+      $query = "UPDATE posts SET post_title='$post_title', post_description = '$post_desc', post_author ='$post_author', post_thumb='$post_image', post_category='$post_category', post_tags='$post_tags' WHERE post_id = '$post_id' " ;
 
-      $add_new_post = mysqli_query($connect, $query);
+      $update_post = mysqli_query($connect, $query);
 
-      if ( !$add_new_post ) {
+      if ( !$update_post ) {
         die( "Query Failed" . mysqli_error( $connect ) );
       } else {
           header("Location: allposts.php");
       }
     }
-*/
     ?>
   </div>
   <!-- End of Main Content -->
