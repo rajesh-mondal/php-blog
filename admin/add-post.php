@@ -65,25 +65,37 @@
       $post_desc        = $_POST['post-desc'];
       $post_author      = $_POST['post-author'];
 
-      $post_image       = $_FILES['image']['name'];
+      $post_image       = $_FILES['image'];
+      $post_image_name  = $_FILES['image']['name'];
       $post_image_temp  = $_FILES['image']['temp_name'];
+      $post_image_size  = $_FILES['image']['size'];
+      $post_image_type  = $_FILES['image']['type'];
 
       $post_category    = $_POST['post-category'];
       $post_tags        = $_POST['post-tags'];
 
-      move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
+      $postAllowedExtension = array("jpg", "jpeg", "png");
+      $postExtension = strtolower( end(explode('.', $post_image_name)) );
 
-      $query = "INSERT INTO posts (post_title, post_description, post_author,	post_thumb, post_category,	post_tags, post_date) VALUES ('$post_title','$post_desc','$post_author','$post_image','$post_category','$post_tags', now())";
+      $formErrors = array();
 
-      $add_new_post = mysqli_query($connect, $query);
+      if( empty($post_image_name) ){
+        $formErrors = '<div class="alert alert-warning">Please Upload Blog Post Thumbnail</div>';
+      }else{
+        $post_image = rand(0,100000) . '_' . $post_image_name;
+        move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
 
-      if ( !$add_new_post ) {
-        die( "Query Failed" . mysqli_error( $connect ) );
-      } else {
-          header("Location: allposts.php");
+        $query = "INSERT INTO posts (post_title, post_description, post_author,	post_thumb, post_category,	post_tags, post_date) VALUES ('$post_title','$post_desc','$post_author','$post_image','$post_category','$post_tags', now())";
+
+        $add_new_post = mysqli_query($connect, $query);
+
+        if ( !$add_new_post ) {
+          die( "Query Failed" . mysqli_error( $connect ) );
+        } else {
+            header("Location: allposts.php");
+        }
       }
     }
-
     ?>
   </div>
   <!-- End of Main Content -->
