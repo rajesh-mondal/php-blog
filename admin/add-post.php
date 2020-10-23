@@ -79,9 +79,20 @@
 
       $formErrors = array();
 
+      if( strlen($post_title)<10 ){
+        $formErrors = 'Post Title is too Small';
+      }
       if( empty($post_image_name) ){
-        $formErrors = '<div class="alert alert-warning">Please Upload Blog Post Thumbnail</div>';
-      }else{
+        $formErrors = 'Please Upload Blog Post Thumbnail';
+      }
+      if( !empty($post_image_name && in_array($postExtension, $postAllowedExtension)) ){
+        $formErrors = 'Please Upload JPG, JPEG, PNG Image';
+      }
+      foreach($formErrors as $error ){
+        echo '<div class="alert alert-warning">' . $formErrors . '</div>';
+      }
+      
+      if( !empty($post_image_name) ){
         $post_image = rand(0,100000) . '_' . $post_image_name;
         move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
 
