@@ -74,6 +74,14 @@
       if(isset($_GET['delete'])){
         $delete_post = $_GET['delete'];
 
+        $delete_img_query = "SELECT * FROM posts WHERE post_id = '$delete_post' " ;
+        $delete_img = mysqli_query($connect, $delete_img_query);
+        while( $row = mysqli_fetch_assoc($delete_img) ){
+          $thumbnail = $row['post_thumb'];
+        }
+        //Delete the Image
+        unlink("img/posts-thumbnail/" . $thumbnail);
+
         $query = "DELETE FROM posts WHERE post_id = '$delete_post' ";
 
         $delete_post = mysqli_query($connect, $query);
