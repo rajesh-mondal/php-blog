@@ -38,7 +38,18 @@
 
                     <div class="form-group">
                         <label for="post-category">Post Category</label>
-                        <input type="text" name="post-category" class="form-control" autocomplete="off">
+                        <select class="form-control" name="post_category">
+                          <option>Please Select the Post Category</option>
+                          <?php 
+                            $query = "SELECT * FROM categories";
+                            $all_cat = mysqli_query($connect, $query);
+                            while ( $row = mysqli_fetch_assoc($all_cat) ){
+                              $cat_id   = $row['cat_id'];
+                              $cat_name = $row['cat_name']; ?>
+                              <option value="<?php echo $cat_id; ?>"><?php echo $cat_name; ?></option>
+                          <?php  }
+                          ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
