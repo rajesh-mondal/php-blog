@@ -51,7 +51,7 @@
                     ?>
                       <tr>
                         <th scope="row"><?php echo $i; ?></th>
-                        <td><img src="img/users-avater/<?php echo $avater ?>" width="35"></td>
+                        <td><img src="img/users-avater/<?php echo $avater ?>" class="user-avater"></td>
                         <td><?php echo $name; ?></td>
                         <td><?php echo $username; ?></td>
                         <td><?php echo $email; ?></td>
