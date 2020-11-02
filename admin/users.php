@@ -110,7 +110,7 @@
 
                         <div class="form-group">
                           <label>Re-Type Password</label>
-                          <input type="text" name="re-password" class="form-control" required="required" autocomplete="off">
+                          <input type="text" name="re_password" class="form-control" required="required" autocomplete="off">
                         </div>
 
                         <div class="form-group">
@@ -131,7 +131,7 @@
 
                         <div class="form-group">
                           <label>User Role</label>
-                          <select class="form-control">
+                          <select class="form-control" name="role">
                             <option>Please Select User Role</option>
                             <option value="1">Administrator</option>
                             <option value="2">Editor</option>
@@ -156,9 +156,74 @@
         </div>
 
       <?php }
-      else if( $do == "Insert" ){
-        echo "Add new users info into the DB";
-      }
+      else if( $do == "Insert" ){ ?>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <?php 
+            
+              if ( $_SERVER['REQUEST_METHOD'] == 'POST' ){
+                $name         = $_POST['name'];
+                $username     = $_POST['username'];
+                $password     = $_POST['password'];
+                $re_password  = $_POST['re_password'];
+                $email        = $_POST['email'];
+                $phone        = $_POST['phone'];
+                $address      = $_POST['address'];
+                $role         = $_POST['role'];
+
+                $avater       = $_FILES['avater'];
+                $avaterName   = $_FILES['avater']['name'];
+                $avaterSize   = $_FILES['avater']['size'];
+                $avaterType   = $_FILES['avater']['type'];
+                $avaterTmp    = $_FILES['avater']['tmp_name'];
+
+                $avaterAllowedExtension = array('jpg', 'jpeg', 'png');
+                $avaterExtension        = strtolower( end( explode('.', $avaterName) ) );
+
+                $formErrors = array();
+
+                if( strlen($username < 4 ) ){
+                  $formErrors = 'Username is too Small';
+                }
+                if( $password != $re_password ){
+                  $formErrors = 'Password Doesn\'t Match';
+                }
+                if( !empty($avaterName) && !in_array( $avaterExtension, $avaterAllowedExtension) ){
+                  $formErrors = 'Please Upload Valid Image Format';
+                }
+                if( !empty($avaterSize) && $avaterSize > 2097152 ){
+                  $formErrors = 'Image size is larger than 2MB';
+                }
+
+                foreach ( $formErrors as $error ){
+                  echo '<div class="alert alert-danger">' . $error . '</div>'; 
+                }
+
+                if ( empty($formErrors) ){
+
+                  $hassedPass = sha1($password);
+
+                  $avater = rand(0,200000). '_' . $avaterName;
+                  move_uploaded_file( $avaterTmp, "img\users-avater\\" . $avater );
+
+                  $query = "INSERT INTO users ( name, username, password, email, phone, address, avater, role, join_date) VALUES ( '$name', '$username', '$password', '$email', '$phone', '$address', '$avater', '$role', now())";
+                  
+                  $add_user = mysqli_query($connect, $query);
+
+                  if( !$add_user ){
+                    die("Query Failed". mysqli_error($connect) );
+                  }else{
+                    header("Location: users.php?do=Manage");
+                  }
+                }
+              }
+            
+            ?>
+          </div>
+        </div>
+
+      <?php }
       else if( $do == "Edit" ){
         echo "User Profile Update Page";
       }
