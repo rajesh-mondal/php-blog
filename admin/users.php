@@ -14,7 +14,7 @@
             <!-- All Users Table Start -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Add Users</h6>
+                <h6 class="m-0 font-weight-bold text-primary">All Users</h6>
               </div>
               <div class="card-body">
               <table class="table">
@@ -73,13 +73,89 @@
               </div>
             </div>
             <!-- All Users Table End -->
+            <div class="add-btn-box">
+              <a href="users.php?do=Add" class="btn btn-primary">Add New User</a>
+            </div>
           </div>
         </div>
       <?php
       }
-      else if( $do == "Add" ){
-        echo "Add New User Page";
-      }
+      else if( $do == "Add" ){ ?>
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Add New Users</h6>
+              </div>
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <form action="?do=Insert" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                          <label>Full Name</label>
+                          <input type="text" name="name" class="form-control" required="required" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                          <label>Username</label>
+                          <input type="text" name="username" class="form-control" required="required" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                          <label>Password</label>
+                          <input type="text" name="password" class="form-control" required="required" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                          <label>Re-Type Password</label>
+                          <input type="text" name="re-password" class="form-control" required="required" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                          <label>Email Address</label>
+                          <input type="email" name="email" class="form-control" required="required" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                          <label>Phone No.</label>
+                          <input type="text" name="phone" class="form-control" required="required" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                          <label>Address</label>
+                          <input type="text" name="address" class="form-control" required="required" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                          <label>User Role</label>
+                          <select class="form-control">
+                            <option>Please Select User Role</option>
+                            <option value="1">Administrator</option>
+                            <option value="2">Editor</option>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <label>Profile Picture</label>
+                          <input type="file" name="avater" class="form-control-file">
+                        </div>
+                        
+                        <div class="form-group">
+                          <input type="submit" name="submit" value="Add New User" class="btn btn-primary btn-flat btn-sm">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <?php }
       else if( $do == "Insert" ){
         echo "Add new users info into the DB";
       }

@@ -1,4 +1,7 @@
 /* Admin Template Custom Design */
+.btn-flat{
+    border-radius: 0;
+}
 .user-avater{
     width: 35px;
     height: 35px;
