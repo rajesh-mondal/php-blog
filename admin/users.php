@@ -105,12 +105,12 @@
 
                         <div class="form-group">
                           <label>Password</label>
-                          <input type="text" name="password" class="form-control" required="required" autocomplete="off">
+                          <input type="password" name="password" class="form-control" required="required" autocomplete="off">
                         </div>
 
                         <div class="form-group">
                           <label>Re-Type Password</label>
-                          <input type="text" name="re_password" class="form-control" required="required" autocomplete="off">
+                          <input type="password" name="re_password" class="form-control" required="required" autocomplete="off">
                         </div>
 
                         <div class="form-group">
@@ -179,11 +179,12 @@
                 $avaterTmp    = $_FILES['avater']['tmp_name'];
 
                 $avaterAllowedExtension = array('jpg', 'jpeg', 'png');
-                $avaterExtension        = strtolower( end( explode('.', $avaterName) ) );
+                $avaterExt        = end( explode('.', $avaterName) );
+                $avaterExtension = strtolower( $avaterExt );
 
                 $formErrors = array();
 
-                if( strlen($username < 4 ) ){
+                if( strlen($username) < 4 ){
                   $formErrors = 'Username is too Small';
                 }
                 if( $password != $re_password ){
