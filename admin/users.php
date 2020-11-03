@@ -56,7 +56,19 @@
                         <td><?php echo $username; ?></td>
                         <td><?php echo $email; ?></td>
                         <td><?php echo $phone; ?></td>
-                        <td><?php echo $role; ?></td>
+                        <td>
+                          <?php
+                            if ( $role == 0 ){
+                              echo '<span class="badge badge-success">Administrator</span>';
+                            }
+                            else if ( $role == 1 ){
+                              echo '<span class="badge badge-primary">Editor</span>';
+                            }
+                            else {
+                              echo '<span class="badge badge-danger">Suspended</span>';
+                            }
+                          ?>
+                        </td>
                         <td>
                           <div class="action-bar">
                             <ul>
