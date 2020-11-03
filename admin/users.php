@@ -220,7 +220,7 @@
                   $avater = rand(0,200000). '_' . $avaterName;
                   move_uploaded_file( $avaterTmp, "img\users-avater\\" . $avater );
 
-                  $query = "INSERT INTO users ( name, username, password, email, phone, address, avater, role, join_date) VALUES ( '$name', '$username', '$password', '$email', '$phone', '$address', '$avater', '$role', now())";
+                  $query = "INSERT INTO users ( name, username, password, email, phone, address, avater, role, join_date) VALUES ( '$name', '$username', '$hassedPass', '$email', '$phone', '$address', '$avater', '$role', now())";
                   
                   $add_user = mysqli_query($connect, $query);
 
