@@ -73,7 +73,7 @@
                           <div class="action-bar">
                             <ul>
                               <li><i class="fa fa-eye"></i></li>
-                              <li><i class="fa fa-edit"></i></li>
+                              <li><a href="users.php?do=Edit&update=<?php echo $id; ?>"><i class="fa fa-edit"></i></a></li>
                               <li><i class="fa fa-trash"></i></li>
                             </ul>
                           </div>
@@ -238,7 +238,89 @@
 
       <?php }
       else if( $do == "Edit" ){
-        echo "User Profile Update Page";
+        if( isset($_GET['update']) ){
+          $the_user = $_GET['update'];
+          
+          $query = "SELECT * FROM users where id = $the_user";
+          $update_user = mysqli_query($connect, $query);
+          while( $row = mysqli_fetch_assoc($update_user) ){
+            $id       = $row['id'];
+            $name     = $row['name'];
+            $username = $row['username'];
+            $password = $row['password'];
+            $email    = $row['email'];
+            $phone    = $row['phone'];
+            $address  = $row['address'];
+            $avater   = $row['avater'];
+            $role     = $row['role'];
+            $join_date= $row['join_date'];
+            ?>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Update User Information</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <form action="?do=Update" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                              <label>Full Name</label>
+                              <input type="text" name="name" class="form-control" required="required" autocomplete="off" value="<?php echo $name; ?>">
+                            </div>
+
+                            <div class="form-group">
+                              <label>Username</label>
+                              <input type="text" name="username" class="form-control" required="required" autocomplete="off" value="<?php echo $username; ?>">
+                            </div>
+
+                            <div class="form-group">
+                              <label>Email Address</label>
+                              <input type="email" name="email" class="form-control" required="required" autocomplete="off" value="<?php echo $email; ?>">
+                            </div>
+
+                            <div class="form-group">
+                              <label>Phone No.</label>
+                              <input type="text" name="phone" class="form-control" required="required" autocomplete="off" value="<?php echo $phone; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Address</label>
+                              <input type="text" name="address" class="form-control" required="required" autocomplete="off" value="<?php echo $address; ?>">
+                            </div>
+
+                            <div class="form-group">
+                              <label>User Role</label>
+                              <select class="form-control" name="role">
+                                <option>Please Select User Role</option>
+                                <option value="1" <?php if( $role == 0 ){ echo 'selected'; } ?> >Administrator</option>
+                                <option value="2" <?php if( $role == 1 ){ echo 'selected'; } ?> >Editor</option>
+                              </select>
+                            </div>
+
+                            <div class="form-group">
+                              <label>Profile Picture</label><br>
+                              <img src="img/users-avater/<?php echo $avater; ?>" width="40"><br>
+                              <input type="file" name="avater" class="form-control-file">
+                            </div>
+                            
+                            <div class="form-group">
+                              <input type="submit" name="submit" value="Save Change" class="btn btn-primary btn-flat btn-sm">
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      <?php }
+        }
       }
       else if( $do == "Update" ){
         echo "Update users info into the DB";
