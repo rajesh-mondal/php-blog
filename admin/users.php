@@ -74,8 +74,31 @@
                             <ul>
                               <li><i class="fa fa-eye"></i></li>
                               <li><a href="users.php?do=Edit&update=<?php echo $id; ?>"><i class="fa fa-edit"></i></a></li>
-                              <li><i class="fa fa-trash"></i></li>
+                              <li><i class="fa fa-trash" data-toggle="modal" data-target="#exampleModal<?php echo $id; ?>"></i></li>
                             </ul>
+                          </div>
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal<?php echo $id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Do You Want to Delete this User?</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <div class="row">
+                                      <div class="col-md-12 text-center">
+                                        <a href="users.php?do=Delete&delete=<?php echo $id; ?>" class="btn btn-danger">Yes</a>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -145,8 +168,8 @@
                           <label>User Role</label>
                           <select class="form-control" name="role">
                             <option>Please Select User Role</option>
-                            <option value="1">Administrator</option>
-                            <option value="2">Editor</option>
+                            <option value="0">Administrator</option>
+                            <option value="1">Editor</option>
                           </select>
                         </div>
 
@@ -407,7 +430,27 @@
         </div>
       <?php }
       else if( $do == "Delete" ){
-        echo "This is the User Delete Page";
+        
+        if( isset($_GET['delete']) ){
+          $the_delete_user = $_GET['delete'];
+         
+          // Delete the users existing image from folder
+          $query = "SELECT * FROM users WHERE id = '$the_delete_user' ";
+          $select_user = mysqli_query($connect, $query);
+          while ( $row = mysqli_fetch_assoc( $select_user ) ){
+            $existing_avater   = $row['avater'];
+          }
+          unlink("img/users-avater/". $existing_avater);
+
+          $delete_query = "DELETE FROM users WHERE id = '$the_delete_user' ";
+          $delete_done = mysqli_query($connect, $delete_query);
+
+          if( !$delete_done ){
+            die("Query Failed". mysqli_error($connect) );
+          }else{
+            header("Location: users.php?do=Manage");
+          }
+        }
       }
     ?>
 
