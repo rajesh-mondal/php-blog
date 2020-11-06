@@ -298,8 +298,8 @@
                               <label>User Role</label>
                               <select class="form-control" name="role">
                                 <option>Please Select User Role</option>
-                                <option value="1" <?php if( $role == 0 ){ echo 'selected'; } ?> >Administrator</option>
-                                <option value="2" <?php if( $role == 1 ){ echo 'selected'; } ?> >Editor</option>
+                                <option value="0" <?php if( $role == 0 ){ echo 'selected'; } ?> >Administrator</option>
+                                <option value="1" <?php if( $role == 1 ){ echo 'selected'; } ?> >Editor</option>
                               </select>
                             </div>
 
