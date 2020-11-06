@@ -72,12 +72,71 @@
                         <td>
                           <div class="action-bar">
                             <ul>
-                              <li><i class="fa fa-eye"></i></li>
+                              <li><i class="fa fa-eye" data-toggle="modal" data-target="#userProfile<?php echo $id; ?>"></i></li>
                               <li><a href="users.php?do=Edit&update=<?php echo $id; ?>"><i class="fa fa-edit"></i></a></li>
                               <li><i class="fa fa-trash" data-toggle="modal" data-target="#exampleModal<?php echo $id; ?>"></i></li>
                             </ul>
                           </div>
-                          <!-- Modal -->
+                          <!-- User Profile Modal -->
+                          <div class="modal fade" id="userProfile<?php echo $id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <div class="row">
+                                      <div class="col-md-12 text-center">
+                                        <img src="img/users-avater/<?php echo $avater; ?>" class="user-modal-img">
+                                      </div>
+                                      <div class="col-md-12">
+                                      <table class="table table-dark table-striped table-bordered">
+                                        <tbody>
+                                          <tr>
+                                            <th scope="col">Fullname</th>
+                                            <td><?php echo $name; ?></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="col">Username</th>
+                                            <td><?php echo $username; ?></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="col">Email Address</th>
+                                            <td><?php echo $email; ?></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="col">Phone No.</th>
+                                            <td><?php echo $phone; ?></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="col">User Role</th>
+                                            <td>
+                                              <?php
+                                                if ( $role == 0 ){
+                                                  echo '<p>Administrator</p>';
+                                                }
+                                                else if ( $role == 1 ){
+                                                  echo '<p>Editor</p>';
+                                                }
+                                                else {
+                                                  echo '<p>Suspended</p>';
+                                                }
+                                              ?>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="col">Join Date</th>
+                                            <td><?php echo $join_date; ?></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- User Delete Confirmation Modal -->
                           <div class="modal fade" id="exampleModal<?php echo $id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
@@ -109,7 +168,7 @@
             </div>
             <!-- All Users Table End -->
             <div class="add-btn-box">
-              <a href="users.php?do=Add" class="btn btn-primary">Add New User</a>
+              <a href="users.php?do=Add" class="btn btn-primary btn-flat btn-sm">Add New User</a>
             </div>
           </div>
         </div>
