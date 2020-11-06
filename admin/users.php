@@ -193,6 +193,7 @@
                 $avaterAllowedExtension = array('jpg', 'jpeg', 'png');
                 $avaterExt        = end( explode('.', $avaterName) );
                 $avaterExtension = strtolower( $avaterExt );
+                //$avaterExtension   = strtolower( end( explode('.', $avaterName) ) );
 
                 $formErrors = array();
 
@@ -244,7 +245,7 @@
           $query = "SELECT * FROM users where id = $the_user";
           $update_user = mysqli_query($connect, $query);
           while( $row = mysqli_fetch_assoc($update_user) ){
-            $id       = $row['id'];
+            $user_id  = $row['id'];
             $name     = $row['name'];
             $username = $row['username'];
             $password = $row['password'];
@@ -309,6 +310,7 @@
                             </div>
                             
                             <div class="form-group">
+                              <input type="hidden" name="user_id" value="<?php echo $user_id; ?>">
                               <input type="submit" name="submit" value="Save Change" class="btn btn-primary btn-flat btn-sm">
                             </div>
                           </form>
@@ -322,9 +324,88 @@
       <?php }
         }
       }
-      else if( $do == "Update" ){
-        echo "Update users info into the DB";
-      }
+      else if( $do == "Update" ){ ?>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Update User Information</h6>
+              </div>
+              <div class="card-body">
+                <?php
+                  if( $_SERVER['REQUEST_METHOD']== 'POST' ){
+
+                    $update_user_id = $_POST['user_id'];
+                    
+                    $name         = $_POST['name'];
+                    $username     = $_POST['username'];
+                    $password     = $row['password'];
+                    $email        = $_POST['email'];
+                    $phone        = $_POST['phone'];
+                    $address      = $_POST['address'];
+                    $role         = $_POST['role'];
+
+                    $avater       = $_FILES['avater'];
+                    $avaterName   = $_FILES['avater']['name'];
+                    $avaterSize   = $_FILES['avater']['size'];
+                    $avaterType   = $_FILES['avater']['type'];
+                    $avaterTmp    = $_FILES['avater']['tmp_name'];
+
+                    $avaterAllowedExtension = array('jpg', 'jpeg', 'png');
+                    $avaterExt        = end( explode('.', $avaterName) );
+                    $avaterExtension  = strtolower( $avaterExt );
+
+                    //$avaterExtension   = strtolower( end( explode('.', $avaterName) ) );
+
+                    $formErrors = array();
+
+                    if( strlen($username) < 4 ){
+                      $formErrors = 'Username is too Small';
+                    }
+                    // if( $password != $re_password ){
+                    //   $formErrors = 'Password Doesn\'t Match';
+                    // }
+                    if( !empty($avaterName) && !in_array( $avaterExtension, $avaterAllowedExtension) ){
+                      $formErrors = 'Please Upload Valid Image Format';
+                    }
+                    if( !empty($avaterSize) && $avaterSize > 2097152 ){
+                      $formErrors = 'Image size is larger than 2MB';
+                    }
+
+                    foreach ( $formErrors as $error ){
+                      echo '<div class="alert alert-danger">' . $error . '</div>'; 
+                    }
+
+                    if ( empty($formErrors) ){
+
+                      $avater = rand(0,200000). '_' . $avaterName;
+                      move_uploaded_file( $avaterTmp, "img\users-avater\\" . $avater );
+
+                      // Delete the users existing image from folder
+                      $sec_query = "SELECT * FROM users WHERE id = '$update_user_id' ";
+                      $select_user = mysqli_query($connect, $sec_query);
+                      while ( $row = mysqli_fetch_assoc( $select_user ) ){
+                        $existing_avater   = $row['avater'];
+                      }
+                      unlink("img/users-avater/". $existing_avater);
+
+                      $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', avater ='$avater', role ='$role' WHERE id = '$update_user_id' ";
+                      //echo $query;
+                      $update_user = mysqli_query($connect, $query);
+
+                      if( !$update_user ){
+                        die("Query Failed". mysqli_error($connect) );
+                      }else{
+                        header("Location: users.php?do=Manage");
+                      }
+                    }
+                  }
+                ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php }
       else if( $do == "Delete" ){
         echo "This is the User Delete Page";
       }
