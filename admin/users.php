@@ -460,25 +460,36 @@
 
                     if ( empty($formErrors) ){
 
-                      $avater = rand(0,200000). '_' . $avaterName;
-                      move_uploaded_file( $avaterTmp, "img\users-avater\\" . $avater );
+                      if( !empty($avaterName) ){
+                        $avater = rand(0,200000). '_' . $avaterName;
+                        move_uploaded_file( $avaterTmp, "img\users-avater\\" . $avater );
+  
+                        // Delete the users existing image from folder
+                        $sec_query = "SELECT * FROM users WHERE id = '$update_user_id' ";
+                        $select_user = mysqli_query($connect, $sec_query);
+                        while ( $row = mysqli_fetch_assoc( $select_user ) ){
+                          $existing_avater   = $row['avater'];
+                        }
+                        unlink("img/users-avater/". $existing_avater);
+  
+                        $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', avater ='$avater', role ='$role' WHERE id = '$update_user_id' ";
+                        $update_user = mysqli_query($connect, $query);
 
-                      // Delete the users existing image from folder
-                      $sec_query = "SELECT * FROM users WHERE id = '$update_user_id' ";
-                      $select_user = mysqli_query($connect, $sec_query);
-                      while ( $row = mysqli_fetch_assoc( $select_user ) ){
-                        $existing_avater   = $row['avater'];
+                        if( !$update_user ){
+                          die("Query Failed". mysqli_error($connect) );
+                        }else{
+                          header("Location: users.php?do=Manage");
+                        }
                       }
-                      unlink("img/users-avater/". $existing_avater);
+                      else{
+                        $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', role ='$role' WHERE id = '$update_user_id' ";
+                        $update_user = mysqli_query($connect, $query);
 
-                      $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', avater ='$avater', role ='$role' WHERE id = '$update_user_id' ";
-                      //echo $query;
-                      $update_user = mysqli_query($connect, $query);
-
-                      if( !$update_user ){
-                        die("Query Failed". mysqli_error($connect) );
-                      }else{
-                        header("Location: users.php?do=Manage");
+                        if( !$update_user ){
+                          die("Query Failed". mysqli_error($connect) );
+                        }else{
+                          header("Location: users.php?do=Manage");
+                        }
                       }
                     }
                   }
