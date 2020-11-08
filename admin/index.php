@@ -1,3 +1,8 @@
+<?php
+  ob_start();
+  include "../includes/db.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,12 +44,12 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
-                  <form class="user">
+                  <form class="user" action="" method="POST">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -52,9 +57,10 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+                    <div class="form-group">
+                      <input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="login">
+                    </div>
+
                     <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Login with Google
@@ -63,6 +69,39 @@
                       <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                     </a>
                   </form>
+
+                  <?php
+                    if( isset($_POST['login']) ){
+                      $email = mysqli_real_escape_string($connect, $_POST['email']);
+                      $pass  = mysqli_real_escape_string($connect, $_POST['password']);
+
+                      $hassedPass = sha1($pass);
+
+                      $query = "SELECT * FROM users WHERE email = '$email' ";
+                      $auth_user = mysqli_query($connect, $query);
+                      while( $row = mysqli_fetch_assoc( $auth_user )){
+                        $_SESSION['$id']        = $row['id'];
+                        $_SESSION['$name']      = $row['name'];
+                        $_SESSION['$username']  = $row['username'];
+                        $password               = $row['password'];
+                        $_SESSION['$email']     = $row['email'];
+                        $_SESSION['$phone']     = $row['phone'];
+                        $_SESSION['$address']   = $row['address'];
+                        $_SESSION['$avater']    = $row['avater'];
+                        $_SESSION['$role']      = $row['role'];
+                        $join_date              = $row['join_date'];
+
+                        if( $email==$_SESSION['$email'] && $hassedPass==$password ){
+                          header("Location: dashboard.php");
+                        }elseif( $email!=$_SESSION['$email'] || $hassedPass!=$password ){
+                          header("Location: index.php");
+                        }else{
+                          header("Location: index.php");
+                        }
+                      }
+                    }                  
+                  ?>
+
                   <hr>
                   <div class="text-center">
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -91,7 +130,9 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
+  <?php 
+    ob_end_flush();
+  ?>
 </body>
 
 </html>
