@@ -1,8 +1,13 @@
-<?php include "../includes/db.php"; ?>
-<?php include "functions.php"; ?>
-
 <?php
+  include "../includes/db.php";
+  include "functions.php";
+
   ob_start();
+  session_start();
+
+  if( empty($_SESSION['$email']) ){
+    header("Location: index.php");
+  }
 ?>
 
 <!DOCTYPE html>
