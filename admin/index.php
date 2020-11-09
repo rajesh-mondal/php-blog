@@ -84,13 +84,13 @@
                         $_SESSION['id']        = $row['id'];
                         $_SESSION['name']      = $row['name'];
                         $_SESSION['username']  = $row['username'];
-                        $password               = $row['password'];
+                        $password              = $row['password'];
                         $_SESSION['email']     = $row['email'];
                         $_SESSION['phone']     = $row['phone'];
                         $_SESSION['address']   = $row['address'];
                         $_SESSION['avater']    = $row['avater'];
                         $_SESSION['role']      = $row['role'];
-                        $join_date              = $row['join_date'];
+                        $join_date             = $row['join_date'];
 
                         if( $email==$_SESSION['$email'] && $hassedPass==$password ){
                           header("Location: dashboard.php");
