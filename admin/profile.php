@@ -30,7 +30,17 @@
                             $join_date= $row['join_date'];
                         }
                     ?>
-                    <img src="img/users-avater/<?php echo $avater; ?>" class="img-fluid">
+
+                    <?php 
+                        if( !empty($avater) ){
+                            ?>
+                            <img class="img-fluid" src="img/users-avater/<?php echo $avater; ?>" >
+                        <?php }
+                        else{ ?>
+                            <img class="img-fluid" src="img/users-avater/default.png">
+                        <?php }
+                    ?>
+
                     <table class="table table-dark table-striped table-bordered">
                         <tbody>
                             <tr>
@@ -128,7 +138,12 @@
 
                                         <div class="form-group">
                                             <label>Profile Picture</label><br>
-                                            <img src="img/users-avater/<?php echo $avater; ?>" width="40"><br>
+                                            <?php
+                                                if( !empty($avater) ){
+                                                    ?>
+                                                    <img src="img/users-avater/<?php echo $avater; ?>" width="40"><br>
+                                                <?php }
+                                            ?>
                                             <input type="file" name="avater" class="form-control-file">
                                         </div>
                                         
