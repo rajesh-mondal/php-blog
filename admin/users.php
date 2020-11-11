@@ -27,6 +27,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Role</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -46,12 +47,25 @@
                       $address  = $row['address'];
                       $avater   = $row['avater'];
                       $role     = $row['role'];
+                      $is_active= $row['is_active'];
                       $join_date= $row['join_date'];
                       $i++; 
                     ?>
                       <tr>
                         <th scope="row"><?php echo $i; ?></th>
-                        <td><img src="img/users-avater/<?php echo $avater ?>" class="user-avater"></td>
+                        <td>
+                          <?php
+                            if( !empty($avater) ){
+                              ?>
+                                <img src="img/users-avater/<?php echo $avater ?>" class="user-avater">
+                            <?php }
+                            else{
+                              ?>
+                                <img src="img/users-avater/default.png" class="user-avater">
+                              <?php
+                            }
+                          ?>
+                        </td>
                         <td><?php echo $name; ?></td>
                         <td><?php echo $username; ?></td>
                         <td><?php echo $email; ?></td>
@@ -63,6 +77,19 @@
                             }
                             else if ( $role == 1 ){
                               echo '<span class="badge badge-primary">Editor</span>';
+                            }
+                            else {
+                              echo '<span class="badge badge-danger">Suspended</span>';
+                            }
+                          ?>
+                        </td>
+                        <td>
+                          <?php
+                            if ( $is_active == 0 ){
+                              echo '<span class="badge badge-danger">Inactive</span>';
+                            }
+                            else if ( $is_active == 1 ){
+                              echo '<span class="badge badge-success">Active</span>';
                             }
                             else {
                               echo '<span class="badge badge-danger">Suspended</span>';

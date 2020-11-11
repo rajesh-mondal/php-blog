@@ -90,9 +90,10 @@
                         $_SESSION['address']   = $row['address'];
                         $_SESSION['avater']    = $row['avater'];
                         $_SESSION['role']      = $row['role'];
+                        $_SESSION['is_active'] = $row['is_active'];
                         $join_date             = $row['join_date'];
 
-                        if( $email==$_SESSION['email'] && $hassedPass==$password ){
+                        if( $email==$_SESSION['email'] && $hassedPass==$password && $_SESSION['is_active'] == 1){
                           header("Location: dashboard.php");
                         }elseif( $email!=$_SESSION['email'] || $hassedPass!=$password ){
                           header("Location: index.php");
