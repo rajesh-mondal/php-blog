@@ -57,8 +57,11 @@
                     <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" name="re-password">
+                    <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password" name="repassword">
                   </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Phone No." name="phone">
                 </div>
                 <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account" name="register">
                 <hr>
@@ -69,9 +72,35 @@
                   <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                 </a>
               </form>
+              
+              <?php
+                if( isset($_POST['register']) ){
+                  $name         = mysqli_real_escape_string($connect, $_POST['name']);
+                  $username     = mysqli_real_escape_string($connect, $_POST['username']);
+                  $email        = mysqli_real_escape_string($connect, $_POST['email']);
+                  $password     = mysqli_real_escape_string($connect, $_POST['password']);
+                  $repassword   = mysqli_real_escape_string($connect, $_POST['repassword']);
+                  $phone        = mysqli_real_escape_string($connect, $_POST['phone']);
+
+                  if( $password == $repassword ){
+                    $hassedPass = sha1($password);
+
+                    $query = "INSERT INTO users ( name, username, password, email, phone, address, avater, role, is_active, join_date ) VALUES ( '$name', '$username', '$hassedPass', '$email', '$phone', '', '', 1, 0, now() )";
+
+                    $register_user = mysqli_query($connect, $query);
+
+                    if ( !$register_user ){
+                      die( "Registration Failed" );
+                    }else{
+                      header("Location: index.php");
+                    }
+                  }
+                }
+              ?>
+
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                <a class="small" href="forgot-password.php">Forgot Password?</a>
               </div>
               <div class="text-center">
                 <a class="small" href="login.php">Already have an account? Login!</a>
