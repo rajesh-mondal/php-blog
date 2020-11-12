@@ -414,7 +414,15 @@
 
                             <div class="form-group">
                               <label>Profile Picture</label><br>
-                              <img src="img/users-avater/<?php echo $avater; ?>" width="40"><br>
+                              <?php 
+                                  if( !empty($avater) ){
+                                    ?>
+                                      <img class="img-fluid" src="img/users-avater/<?php echo $avater; ?>" >
+                                  <?php }
+                                  else{ ?>
+                                      <img class="img-fluid" src="img/users-avater/default.png">
+                                  <?php }
+                              ?>
                               <input type="file" name="avater" class="form-control-file">
                             </div>
                             
