@@ -78,11 +78,24 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending User Requests</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800 notifications">
+                        <?php
+                          $query = "SELECT * FROM users WHERE is_active = 0";
+                          $user_status = mysqli_query($connect, $query);
+                          $i = 0;
+                          while( $row = mysqli_fetch_assoc($user_status) ){
+                            $is_active = $row['is_active'];
+                            $i++;
+                          }
+                        ?>
+                        <a href="users.php?do=Manage">
+                          <?php echo $i; ?>
+                        </a>
+                      </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      <i class="fas fa-users fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
