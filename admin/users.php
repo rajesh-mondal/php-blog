@@ -363,6 +363,7 @@
             $address  = $row['address'];
             $avater   = $row['avater'];
             $role     = $row['role'];
+            $is_active= $row['is_active'];
             $join_date= $row['join_date'];
             ?>
 
@@ -396,19 +397,29 @@
                               <label>Phone No.</label>
                               <input type="text" name="phone" class="form-control" required="required" autocomplete="off" value="<?php echo $phone; ?>">
                             </div>
-                        </div>
-                        <div class="col-md-6">
+
                             <div class="form-group">
                               <label>Address</label>
                               <input type="text" name="address" class="form-control" required="required" autocomplete="off" value="<?php echo $address; ?>">
                             </div>
+                        </div>
 
+                        <div class="col-md-6">
                             <div class="form-group">
                               <label>User Role</label>
                               <select class="form-control" name="role">
                                 <option>Please Select User Role</option>
                                 <option value="0" <?php if( $role == 0 ){ echo 'selected'; } ?> >Administrator</option>
                                 <option value="1" <?php if( $role == 1 ){ echo 'selected'; } ?> >Editor</option>
+                              </select>
+                            </div>
+
+                            <div class="form-group">
+                              <label>Active Status</label>
+                              <select class="form-control" name="is_active">
+                                <option>Please Select User Status</option>
+                                <option value="0" <?php if( $is_active == 0 ){ echo 'selected'; } ?> >Inactive</option>
+                                <option value="1" <?php if( $is_active == 1 ){ echo 'selected'; } ?> >Active</option>
                               </select>
                             </div>
 
@@ -461,6 +472,7 @@
                     $phone        = $_POST['phone'];
                     $address      = $_POST['address'];
                     $role         = $_POST['role'];
+                    $is_active    = $_POST['is_active'];
 
                     $avater       = $_FILES['avater'];
                     $avaterName   = $_FILES['avater']['name'];
@@ -507,7 +519,7 @@
                         }
                         unlink("img/users-avater/". $existing_avater);
   
-                        $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', avater ='$avater', role ='$role' WHERE id = '$update_user_id' ";
+                        $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', avater ='$avater', role ='$role', is_active ='$is_active' WHERE id = '$update_user_id' ";
                         $update_user = mysqli_query($connect, $query);
 
                         if( !$update_user ){
@@ -517,7 +529,7 @@
                         }
                       }
                       else{
-                        $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', role ='$role' WHERE id = '$update_user_id' ";
+                        $query = "UPDATE users SET name ='$name', username ='$username', email ='$email', phone ='$phone', address ='$address', role ='$role', is_active ='$is_active' WHERE id = '$update_user_id' ";
                         $update_user = mysqli_query($connect, $query);
 
                         if( !$update_user ){
