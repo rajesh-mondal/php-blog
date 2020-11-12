@@ -395,12 +395,12 @@
 
                             <div class="form-group">
                               <label>Phone No.</label>
-                              <input type="text" name="phone" class="form-control" required="required" autocomplete="off" value="<?php echo $phone; ?>">
+                              <input type="text" name="phone" class="form-control" autocomplete="off" value="<?php echo $phone; ?>">
                             </div>
 
                             <div class="form-group">
                               <label>Address</label>
-                              <input type="text" name="address" class="form-control" required="required" autocomplete="off" value="<?php echo $address; ?>">
+                              <input type="text" name="address" class="form-control" autocomplete="off" value="<?php echo $address; ?>">
                             </div>
                         </div>
 
@@ -428,10 +428,10 @@
                               <?php 
                                   if( !empty($avater) ){
                                     ?>
-                                      <img class="img-fluid" src="img/users-avater/<?php echo $avater; ?>" >
+                                      <img class="user-avater" src="img/users-avater/<?php echo $avater; ?>" >
                                   <?php }
                                   else{ ?>
-                                      <img class="img-fluid" src="img/users-avater/default.png">
+                                      <img class="user-avater" src="img/users-avater/default.png">
                                   <?php }
                               ?>
                               <input type="file" name="avater" class="form-control-file">
