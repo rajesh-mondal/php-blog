@@ -27,11 +27,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="post-author">Post Author</label>
-                        <input type="text" name="post-author" class="form-control" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
                         <label for="post-thumbnail">Post Thumbnail</label>
                         <input type="file" name="image" class="form-control-file">
                     </div>
@@ -74,7 +69,7 @@
     if( isset($_POST['add-post']) ){
       $post_title       = $_POST['post-title'];
       $post_desc        = $_POST['post-desc'];
-      $post_author      = $_POST['post-author'];
+      $post_author      = $_SESSION['name'];
 
       $post_image       = $_FILES['image'];
       $post_image_name  = $_FILES['image']['name'];
@@ -82,7 +77,7 @@
       $post_image_size  = $_FILES['image']['size'];
       $post_image_type  = $_FILES['image']['type'];
 
-      $post_category    = $_POST['post-category'];
+      $post_category    = $_POST['post_category'];
       $post_tags        = $_POST['post-tags'];
 
       $postAllowedExtension = array("jpg", "jpeg", "png");
