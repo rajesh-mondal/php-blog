@@ -48,7 +48,17 @@
                         <th scope="row"><?php echo $i ?></th>
                         <td><?php echo $post_title ?></td>
                         <td><?php echo $post_author ?></td>
-                        <td><?php echo $post_category ?></td>
+                        <td>
+                          <?php
+                            $query = "SELECT * FROM categories WHERE cat_id = '$post_category' ";
+                            $the_cat = mysqli_query($connect, $query);
+                            while( $row = mysqli_fetch_assoc($the_cat) ){
+                              $cat_id     = $row['cat_id'];
+                              $cat_name   = $row['cat_name'];
+                            }
+                            echo $cat_name;
+                          ?>
+                        </td>
                         <td><?php echo $post_date ?></td>
                         <td>
                         <div class="btn-group">
