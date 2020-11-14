@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" name="add-post" value="Publish Post" class="btn btn-primary">
+                        <input type="submit" name="addpost" value="Publish Post" class="btn btn-primary">
                     </div>
                 </form>
                 <!-- Add New Post Form End -->
@@ -66,19 +66,19 @@
     <?php
     
     //Add New Blog Post Function
-    if( isset($_POST['add-post']) ){
+    if( isset($_POST['addpost']) ){
       $post_title       = $_POST['post-title'];
       $post_desc        = $_POST['post-desc'];
       $post_author      = $_SESSION['name'];
+
+      $post_category    = $_POST['post_racategory'];
+      $post_tags        = $_POST['post-tags'];
 
       $post_image       = $_FILES['image'];
       $post_image_name  = $_FILES['image']['name'];
       $post_image_temp  = $_FILES['image']['temp_name'];
       $post_image_size  = $_FILES['image']['size'];
       $post_image_type  = $_FILES['image']['type'];
-
-      $post_category    = $_POST['post_category'];
-      $post_tags        = $_POST['post-tags'];
 
       $postAllowedExtension = array("jpg", "jpeg", "png");
       $postExtension = strtolower( end(explode('.', $post_image_name)) );

@@ -43,11 +43,6 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="post-author">Post Author</label>
-                                <input type="text" name="post-author" class="form-control" autocomplete="off" value="<?php echo $post_author; ?>">
-                            </div>
-
-                            <div class="form-group">
                                 <label for="post-thumbnail">Post Thumbnail</label><br>
                                 <img src="img/posts-thumbnail/<?php echo $post_thumb; ?>" width="200">
                                 <input type="file" name="image" class="form-control-file" >
@@ -99,24 +94,37 @@
     if( isset($_POST['update-post']) ){
       $post_title       = mysqli_real_escape_string($connect, $_POST['post-title']);
       $post_desc        = mysqli_real_escape_string($connectt, $_POST['post-desc']);
-      $post_author      = $_POST['post-author'];
-
-      $post_image       = $_FILES['image']['name'];
-      $post_image_temp  = $_FILES['image']['temp_name'];
-
+     
       $post_category    = $_POST['post-category'];
       $post_tags        = $_POST['post-tags'];
 
-      move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
+      $post_image       = $_FILES['image'];
+      $post_image_name  = $_FILES['image']['name'];
+      $post_image_temp  = $_FILES['image']['temp_name'];
 
-      $query = "UPDATE posts SET post_title='$post_title', post_description = '$post_desc', post_author ='$post_author', post_thumb='$post_image', post_category='$post_category', post_tags='$post_tags' WHERE post_id = '$post_id' " ;
+      if( !empty($post_image_name) ){
+        $post_image = rand(0,100000) . '_' . $post_image_name;
+        move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
 
-      $update_post = mysqli_query($connect, $query);
+        $query = "UPDATE posts SET post_title='$post_title', post_description = '$post_desc', post_thumb='$post_image', post_category='$post_category', post_tags='$post_tags' WHERE post_id = '$post_id' " ;
 
-      if ( !$update_post ) {
-        die( "Query Failed" . mysqli_error( $connect ) );
-      } else {
-          header("Location: allposts.php");
+        $update_post = mysqli_query($connect, $query);
+
+        if ( !$update_post ) {
+          die( "Query Failed" . mysqli_error( $connect ) );
+        } else {
+            header("Location: allposts.php");
+        }
+      }else{
+        $query = "UPDATE posts SET post_title='$post_title', post_description = '$post_desc', post_category='$post_category', post_tags='$post_tags' WHERE post_id = '$post_id' " ;
+
+        $update_post = mysqli_query($connect, $query);
+
+        if ( !$update_post ) {
+          die( "Query Failed" . mysqli_error( $connect ) );
+        } else {
+            header("Location: allposts.php");
+        }
       }
     }
     ?>
