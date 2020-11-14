@@ -33,14 +33,15 @@
 
                     <div class="form-group">
                         <label for="post-category">Post Category</label>
-                        <select class="form-control" name="post_category">
+                        <select class="form-control" name="post-category">
                           <option>Please Select the Post Category</option>
                           <?php 
                             $query = "SELECT * FROM categories";
                             $all_cat = mysqli_query($connect, $query);
                             while ( $row = mysqli_fetch_assoc($all_cat) ){
                               $cat_id   = $row['cat_id'];
-                              $cat_name = $row['cat_name']; ?>
+                              $cat_name = $row['cat_name'];
+                              ?>
                               <option value="<?php echo $cat_id; ?>"><?php echo $cat_name; ?></option>
                           <?php  }
                           ?>
@@ -71,7 +72,7 @@
       $post_desc        = $_POST['post-desc'];
       $post_author      = $_SESSION['name'];
 
-      $post_category    = $_POST['post_racategory'];
+      $post_category    = $_POST['post-category'];
       $post_tags        = $_POST['post-tags'];
 
       $post_image       = $_FILES['image'];
