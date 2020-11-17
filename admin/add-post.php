@@ -77,8 +77,8 @@
 
       $post_image       = $_FILES['image'];
       $post_image_name  = $_FILES['image']['name'];
-      $post_image_temp  = $_FILES['image']['temp_name'];
       $post_image_size  = $_FILES['image']['size'];
+      $post_image_temp  = $_FILES['image']['tmp_name'];
       $post_image_type  = $_FILES['image']['type'];
 
       $postAllowedExtension = array("jpg", "jpeg", "png");
@@ -101,7 +101,7 @@
       
       if( !empty($post_image_name) ){
         $post_image = rand(0,100000) . '_' . $post_image_name;
-        move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
+        move_uploaded_file($post_image_temp, "img\posts-thumbnail\\" . $post_image);
 
         $query = "INSERT INTO posts (post_title, post_description, post_author,	post_thumb, post_category,	post_tags, post_date) VALUES ('$post_title','$post_desc','$post_author','$post_image','$post_category','$post_tags', now())";
 
