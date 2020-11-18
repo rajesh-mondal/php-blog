@@ -100,7 +100,10 @@
 
       $post_image       = $_FILES['image'];
       $post_image_name  = $_FILES['image']['name'];
-      $post_image_temp  = $_FILES['image']['temp_name'];
+      $post_image_size  = $_FILES['image']['size'];
+      $post_image_temp  = $_FILES['image']['tmp_name'];
+      $post_image_type  = $_FILES['image']['type'];
+
 
       if( !empty($post_image_name) ){
         $post_image = rand(0,100000) . '_' . $post_image_name;
