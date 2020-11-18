@@ -18,8 +18,17 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Categories</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <?php
+                          $sql = "SELECT * FROM Categories";
+                          $all_cat = mysqli_query($connect, $sql);
+                          $total_cat = mysqli_num_rows($all_cat);
+                        ?>
+                        <a href="all-categories.php">
+                          <?php echo $total_cat; ?>
+                        </a>
+                      </div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -35,8 +44,17 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Blog Post</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <?php
+                          $sql = "SELECT * FROM posts";
+                          $all_post = mysqli_query($connect, $sql);
+                          $total_post = mysqli_num_rows($all_post);
+                        ?>
+                        <a href="all-categories.php">
+                          <?php echo $total_post; ?>
+                        </a>
+                      </div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -52,10 +70,19 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">All Comments</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                            <?php
+                              $sql = "SELECT * FROM comments";
+                              $all_comment = mysqli_query($connect, $sql);
+                              $total_comment = mysqli_num_rows($all_comment);
+                            ?>
+                            <a href="comments.php">
+                              <?php echo $total_comment; ?>
+                            </a>
+                          </div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
@@ -74,7 +101,7 @@
 
             <!-- Pending Requests Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
+              <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
