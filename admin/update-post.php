@@ -106,6 +106,13 @@
         $post_image = rand(0,100000) . '_' . $post_image_name;
         move_uploaded_file($post_image_temp, "img/posts-thumbnail/$post_image");
 
+        $sql = "SELECT * FROM posts WHERE post_id ='$post_id' ";
+        $unlink_img = mysqli_query($connect, $sql);
+        while( $row = mysqli_fetch_assoc($unlink_img) ){
+          $the_image = $row['post_thumb'];
+        }
+        unlink("img/posts-thumbnail/". $the_image);
+
         $query = "UPDATE posts SET post_title='$post_title', post_description = '$post_desc', post_thumb='$post_image', post_category='$post_category', post_tags='$post_tags' WHERE post_id = '$post_id' " ;
 
         $update_post = mysqli_query($connect, $query);
