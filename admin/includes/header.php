@@ -127,6 +127,21 @@
         </div>
       </li>
 
+      <!-- Nav Item - Website Opton Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#setting" aria-expanded="true" aria-controls="setting">
+          <i class="fas fa-users"></i>
+          <span>Website Settings</span>
+        </a>
+        <div id="setting" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Website Setting:</h6>
+            <a class="collapse-item" href="settings.php">Logo and Favicon</a>
+            <a class="collapse-item" href="social.php">Social Media</a>
+          </div>
+        </div>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
