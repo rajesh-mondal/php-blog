@@ -25,12 +25,37 @@
               </div>
 
               <div class="form-group">
-                <input type="submit" name="addSettings" class="btn btn-primary btn-flat btn-sm">
+                <input type="submit" name="addSettings" value="Save" class="btn btn-primary btn-flat btn-sm">
               </div>
             </form>
             <!--- Website Logo and Favicon Upload End --->
           </div>
         </div>
+        <?php
+          if(isset($_POST['addSettings'])){
+            $logo         = $_FILES['logo'];
+            $logoName     = $_FILES['logo']['name'];
+            $logoTmp      = $_FILES['logo']['tmp_name'];
+
+            $favicon      = $_FILES['favicon'];
+            $faviconName  = $_FILES['favicon']['name'];
+            $faviconTmp   = $_FILES['favicon']['tmp_name'];
+
+            $logoFile      = rand(0,200000). '_' . $logoName;
+            $faviconFile   = rand(0,200000). '_' . $faviconName;
+            move_uploaded_file($logoTmp, "img\\" . $logoFile);
+            move_uploaded_file($faviconTmp, "img\\" . $faviconFile);
+
+            $sql = "UPDATE settings SET logo='$logoFile', favicon = '$faviconFile' WHERE set_id = 1";
+            $add_media = mysqli_query($connect, $sql);
+
+            if( !$add_media ){
+              die("Operation Failed");
+            }else{
+              header("Location: settings.php");
+            }
+          }
+        ?>
       </div>
 
     </div>
