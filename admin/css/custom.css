@@ -55,3 +55,7 @@
     color: #5a5c69!important;
     text-decoration: none;
 }
+.media-setting{
+    border: 3px solid #eee;
+    padding: 5px;
+}

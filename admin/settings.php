@@ -15,12 +15,40 @@
             <!--- Website Logo and Favicon Upload Start --->
             <form action="" method="POST" enctype="multipart/form-data">
               <div class="form-group">
-                <label>Upload Logo</label>
+                <label>Upload Logo (250x150)</label><br><br>
+                <?php
+                  $sql = "SELECT * FROM settings";
+                  $all_media = mysqli_query($connect, $sql);
+                  while( $row = mysqli_fetch_assoc($all_media) ){
+                    $logo     = $row['logo'];
+                    $favicon  = $row['favicon'];
+                  }
+
+                  if( !empty($logo) ){
+                    ?>
+                      <img src="img/<?php echo $logo ?>" width="250" class="media-setting"><br><br>
+                    <?php
+                  }
+                ?>
                 <input type="file" name="logo" class="form-control-file">
               </div>
 
               <div class="form-group">
-                <label>Upload Favicon</label>
+                <label>Upload Favicon (32x32)</label><br><br>
+                <?php
+                  $sql = "SELECT * FROM settings";
+                  $all_media = mysqli_query($connect, $sql);
+                  while( $row = mysqli_fetch_assoc($all_media) ){
+                    $logo     = $row['logo'];
+                    $favicon  = $row['favicon'];
+                  }
+
+                  if( !empty($favicon) ){
+                    ?>
+                      <img src="img/<?php echo $favicon ?>" width="180" class="media-setting"><br><br>
+                    <?php
+                  }
+                ?>
                 <input type="file" name="favicon" class="form-control-file">
               </div>
 
