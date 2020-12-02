@@ -2,6 +2,10 @@
   <!-- Begin Page Content -->
   <div class="container-fluid">
 
+    <?php
+      if( $_SESSION['role'] == 0 ){
+    ?>
+
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">View All Users</h1>
 
@@ -571,6 +575,7 @@
       }
     ?>
 
+    <?php } ?>
     </div>
     <!-- /.container-fluid -->
 
