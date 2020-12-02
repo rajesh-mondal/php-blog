@@ -16,57 +16,192 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Facebook</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="Facebook URL">
+                                <?php 
+                                    $sql = "SELECT * FROM socialmedia WHERE s_id = 1" ;
+                                    $read_url = mysqli_query($connect, $sql);
+                                    while( $row = mysqli_fetch_assoc($read_url) ){
+                                        $s_link = $row['s_link'];
+
+                                        if( $s_link == "" ){
+                                            ?>
+                                                <input type="text" class="form-control" name="url-link" placeholder="Facebook URL">
+                                            <?php
+                                        }else{
+                                            ?>
+                                                <input type="text" class="form-control" name="url-link" value="<?php echo $s_link; ?>">
+                                        <?php }
+                                    }                                
+                               ?>
                             </div>
                             <div class="col-sm-2">
                                 <input type="submit" name="facebook-save" value="Save" class="btn btn-primary btn-flat btn-sm" >
                             </div>
                         </div>
                     </form>
+                    <?php
+                        if( isset($_POST['facebook-save']) ){
+                            $url_link = $_POST['url-link'];
+                            $sql = "UPDATE socialmedia SET s_link = '$url_link' WHERE s_id = 1";
+                            $updateLink = mysqli_query($connect, $sql);
+                            if( !$updateLink ){
+                                die("Operation Failed");
+                            }else{
+                                header("Location: social.php");
+                            }
+                        }
+                    ?>
                     <form action="" method="POST">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Twitter</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="Twitter URL">
+                            <?php 
+                                $sql = "SELECT * FROM socialmedia WHERE s_id = 2" ;
+                                $read_url = mysqli_query($connect, $sql);
+                                while( $row = mysqli_fetch_assoc($read_url) ){
+                                    $s_link = $row['s_link'];
+
+                                    if( $s_link == "" ){
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" placeholder="Twitter URL">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" value="<?php echo $s_link; ?>">
+                                    <?php }
+                                }                                
+                            ?>
                             </div>
                             <div class="col-sm-2">
                                 <input type="submit" name="twitter-save" value="Save" class="btn btn-primary btn-flat btn-sm" >
                             </div>
                         </div>
                     </form>
+                    <?php
+                        if( isset($_POST['twitter-save']) ){
+                            $url_link = $_POST['url-link'];
+                            $sql = "UPDATE socialmedia SET s_link = '$url_link' WHERE s_id = 2";
+                            $updateLink = mysqli_query($connect, $sql);
+                            if( !$updateLink ){
+                                die("Operation Failed");
+                            }else{
+                                header("Location: social.php");
+                            }
+                        }
+                    ?>
                     <form action="" method="POST">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Linkedin</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="Linkedin URL">
+                            <?php 
+                                $sql = "SELECT * FROM socialmedia WHERE s_id = 3" ;
+                                $read_url = mysqli_query($connect, $sql);
+                                while( $row = mysqli_fetch_assoc($read_url) ){
+                                    $s_link = $row['s_link'];
+
+                                    if( $s_link == "" ){
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" placeholder="Linkedin URL">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" value="<?php echo $s_link; ?>">
+                                    <?php }
+                                }                                
+                            ?>
                             </div>
                             <div class="col-sm-2">
                                 <input type="submit" name="linkedin-save" value="Save" class="btn btn-primary btn-flat btn-sm" >
                             </div>
                         </div>
                     </form>
+                    <?php
+                        if( isset($_POST['linkedin-save']) ){
+                            $url_link = $_POST['url-link'];
+                            $sql = "UPDATE socialmedia SET s_link = '$url_link' WHERE s_id = 3";
+                            $updateLink = mysqli_query($connect, $sql);
+                            if( !$updateLink ){
+                                die("Operation Failed");
+                            }else{
+                                header("Location: social.php");
+                            }
+                        }
+                    ?>
                     <form action="" method="POST">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Youtube</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="Youtube URL">
+                            <?php 
+                                $sql = "SELECT * FROM socialmedia WHERE s_id = 4" ;
+                                $read_url = mysqli_query($connect, $sql);
+                                while( $row = mysqli_fetch_assoc($read_url) ){
+                                    $s_link = $row['s_link'];
+
+                                    if( $s_link == "" ){
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" placeholder="Youtube URL">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" value="<?php echo $s_link; ?>">
+                                    <?php }
+                                }                                
+                            ?>
                             </div>
                             <div class="col-sm-2">
                                 <input type="submit" name="youtube-save" value="Save" class="btn btn-primary btn-flat btn-sm" >
                             </div>
                         </div>
                     </form>
+                    <?php
+                        if( isset($_POST['youtube-save']) ){
+                            $url_link = $_POST['url-link'];
+                            $sql = "UPDATE socialmedia SET s_link = '$url_link' WHERE s_id = 4";
+                            $updateLink = mysqli_query($connect, $sql);
+                            if( !$updateLink ){
+                                die("Operation Failed");
+                            }else{
+                                header("Location: social.php");
+                            }
+                        }
+                    ?>
                     <form action="" method="POST">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Behance</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="Behance URL">
+                            <?php 
+                                $sql = "SELECT * FROM socialmedia WHERE s_id = 5" ;
+                                $read_url = mysqli_query($connect, $sql);
+                                while( $row = mysqli_fetch_assoc($read_url) ){
+                                    $s_link = $row['s_link'];
+
+                                    if( $s_link == "" ){
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" placeholder="Behance URL">
+                                        <?php
+                                    }else{
+                                        ?>
+                                            <input type="text" class="form-control" name="url-link" value="<?php echo $s_link; ?>">
+                                    <?php }
+                                }                                
+                            ?>
                             </div>
                             <div class="col-sm-2">
                                 <input type="submit" name="behance-save" value="Save" class="btn btn-primary btn-flat btn-sm" >
                             </div>
                         </div>
                     </form>
+                    <?php
+                        if( isset($_POST['behance-save']) ){
+                            $url_link = $_POST['url-link'];
+                            $sql = "UPDATE socialmedia SET s_link = '$url_link' WHERE s_id = 5";
+                            $updateLink = mysqli_query($connect, $sql);
+                            if( !$updateLink ){
+                                die("Operation Failed");
+                            }else{
+                                header("Location: social.php");
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </div>
