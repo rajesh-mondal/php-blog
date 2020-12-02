@@ -202,6 +202,83 @@
                             }
                         }
                     ?>
+                    <form action="" method="POST">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Dribble</label>
+                            <div class="col-sm-8">
+                                <?php 
+                                    $sql = "SELECT * FROM socialmedia WHERE s_id = 6" ;
+                                    $read_url = mysqli_query($connect, $sql);
+                                    while( $row = mysqli_fetch_assoc($read_url) ){
+                                        $s_link = $row['s_link'];
+
+                                        if( $s_link == "" ){
+                                            ?>
+                                                <input type="text" class="form-control" name="url-link" placeholder="Dribble URL">
+                                            <?php
+                                        }else{
+                                            ?>
+                                                <input type="text" class="form-control" name="url-link" value="<?php echo $s_link; ?>">
+                                        <?php }
+                                    }                                
+                               ?>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="submit" name="dribble-save" value="Save" class="btn btn-primary btn-flat btn-sm" >
+                            </div>
+                        </div>
+                    </form>
+                    <?php
+                        if( isset($_POST['dribble-save']) ){
+                            $url_link = $_POST['url-link'];
+                            $sql = "UPDATE socialmedia SET s_link = '$url_link' WHERE s_id = 6";
+                            $updateLink = mysqli_query($connect, $sql);
+                            if( !$updateLink ){
+                                die("Operation Failed");
+                            }else{
+                                header("Location: social.php");
+                            }
+                        }
+                    ?>
+                    <form action="" method="POST">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Instagram</label>
+                            <div class="col-sm-8">
+                                <?php 
+                                    $sql = "SELECT * FROM socialmedia WHERE s_id = 7" ;
+                                    $read_url = mysqli_query($connect, $sql);
+                                    while( $row = mysqli_fetch_assoc($read_url) ){
+                                        $s_link = $row['s_link'];
+
+                                        if( $s_link == "" ){
+                                            ?>
+                                                <input type="text" class="form-control" name="url-link" placeholder="Instagram URL">
+                                            <?php
+                                        }else{
+                                            ?>
+                                                <input type="text" class="form-control" name="url-link" value="<?php echo $s_link; ?>">
+                                        <?php }
+                                    }                                
+                               ?>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="submit" name="instagram-save" value="Save" class="btn btn-primary btn-flat btn-sm" >
+                            </div>
+                        </div>
+                    </form>
+                    <?php
+                        if( isset($_POST['instagram-save']) ){
+                            $url_link = $_POST['url-link'];
+                            $sql = "UPDATE socialmedia SET s_link = '$url_link' WHERE s_id = 7";
+                            $updateLink = mysqli_query($connect, $sql);
+                            if( !$updateLink ){
+                                die("Operation Failed");
+                            }else{
+                                header("Location: social.php");
+                            }
+                        }
+                    ?>
+
                 </div>
             </div>
         </div>
